@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 mongoose.connect(
-	"mongodb://localhost:27017/urlshort",
+	process.env.MONGO_URI,
 	{
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
@@ -33,8 +33,10 @@ app.post("/new/addurl", async (req, res) => {
 		shortLink: req.body.shortLink,
 	});
 	try {
+		if (req.body.shortLink.includes(" "))
+			return res.status(400).json("Url Cannot contain spaces");
 		const savedUrl = await addedUrl.save();
-		res.status(200).json(`Your New Url Is ${savedUrl.shortLink}`);
+		res.status(200).json(`Your New Url Is adikg.ml/${savedUrl.shortLink}`);
 	} catch (err) {
 		res.status(400).json(err);
 	}

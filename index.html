@@ -8,6 +8,7 @@
 	<body>
 		<h1>This is the best Url shortner</h1>
 		<input type="text" placeholder="URL" id="full_url" />
+		<p>The Url Must start with https:// or with http://</p>
 		<input type="text" placeholder="shortlink" id="short_url" />
 		<button onclick="sendUrl()">Short</button>
 		<p id="response"></p>
@@ -17,7 +18,7 @@
 			let fullUrl = document.getElementById("full_url").value;
 			let shortUrl = document.getElementById("short_url").value;
 
-			fetch("http://localhost:8080/new/addurl", {
+			fetch("http://adikg.ml/new/addurl", {
 				method: "post",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
