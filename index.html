@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>URL Shortner</title>
+	</head>
+	<body>
+		<h1>This is the best Url shortner</h1>
+		<input type="text" placeholder="URL" id="full_url" />
+		<input type="text" placeholder="shortlink" id="short_url" />
+		<button onclick="sendUrl()">Short</button>
+		<p id="response"></p>
+	</body>
+	<script>
+		function sendUrl() {
+			let fullUrl = document.getElementById("full_url").value;
+			let shortUrl = document.getElementById("short_url").value;
+
+			fetch("http://localhost:8080/new/addurl", {
+				method: "post",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					url: fullUrl,
+					shortLink: shortUrl,
+				}),
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					let responseText = document.getElementById("response");
+					responseText.innerText = data;
+				});
+		}
+	</script>
+</html>
